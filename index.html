@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f2e8">
+  <title>Spare Me! — A mildly infuriating bowling game</title>
+  <link rel="icon" href="cat.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="Spare Me home"><span class="brand-ball">●</span> SPARE ME<span>!</span></a>
+      <span class="masthead-note">GOOD BOWLING. QUESTIONABLE VIBES.</span>
+      <button id="sound" class="quiet-button" aria-pressed="true">♫ Sound on</button>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><div class="eyebrow">● THE WORLD'S LEAST RELAXING BOWLING GAME</div>
+          <h1 id="title">Three strikes.<br><em>How hard could it be?</em></h1>
+          <p>Bowl a strike. Meet a cat. Miss a pin. Question your existence.</p>
+        </div>
+        <div class="goal-stamp"><span>YOUR ONLY JOB</span><strong>XXX</strong><span>3 STRIKES TO WIN</span></div>
+      </section>
+      <div class="game-layout">
+        <section class="game-card" aria-label="Bowling game">
+          <div class="lane-toolbar"><span class="lane-label"><i></i> LANE 01 <span>/ OPEN FOR SUFFERING</span></span><span id="roll-count">ROLL 01</span></div>
+          <div class="lane-wrap">
+            <canvas id="lane" width="1000" height="660" aria-label="Bowling lane. Use the aim slider below, then charge and release your ball."></canvas>
+            <div class="lane-top-note">EST. FIVE MINUTES AGO</div>
+            <div id="lane-message" class="lane-message" aria-live="polite">Your moment of glory. Probably.</div>
+            <div class="lane-bottom-note"><span id="lane-oil" class="lane-oil">LANE OIL: CHECKING…</span><span>NO BUMPERS. NO MERCY.</span></div>
+            <div id="celebration" class="celebration" hidden><div class="strike-type">¡STRIKE!</div><img src="cat.svg" alt="An orange mariachi cat dancing with a guitar" class="dancing-cat"><div class="confetti"></div></div>
+          </div>
+          <div class="controls">
+            <div class="aim-control"><label for="aim">01 <strong>LINE IT UP</strong><span id="aim-value">DEAD CENTER</span></label><input id="aim" type="range" min="-100" max="100" value="0" aria-label="Aim, left to right"><div class="range-labels"><span>LEFT</span><span>RIGHT</span></div></div>
+            <div class="power-control"><div class="power-label">02 <strong>FIND YOUR POWER</strong><span id="power-value">0%</span></div><div class="power-track" role="meter" aria-label="Shot power" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="sweet-spot"></div><div id="power-fill"></div><div id="power-marker"></div></div><div class="range-labels"><span>A LITTLE MORE…</span><span>…NOT THAT MUCH</span></div></div>
+            <button id="bowl" class="bowl-button">LET IT ROLL <span>↗</span></button>
+          </div>
+          <div class="control-tip"><kbd>SPACE</kbd> or click to charge · again to release <span>Watch the oil. The aim wobbles. The green zone shrinks.</span></div>
+        </section>
+        <aside class="sidebar">
+          <section class="streak-card"><div class="card-eyebrow">THE HOLY TRINITY <span>✧</span></div><h2>Your strike streak</h2><div class="streak-slots" aria-label="0 of 3 strikes"><div>×<small>01</small></div><div>×<small>02</small></div><div>×<small>03</small></div></div><p id="streak-note" aria-live="polite">Three in a row. No pressure.<br>Okay, a little pressure.</p><div class="best-line"><span>PERSONAL BEST</span><strong id="best">0 / 3</strong></div></section>
+          <section class="cat-card"><span class="cat-tag">EMPLOYEE OF THE MONTH</span><img src="cat.svg" alt="Señor Whiskers, an orange cat in a sombrero playing guitar"><div class="cat-intro"><h2>Señor Whiskers</h2><span>HEAD OF UNNECESSARY CELEBRATIONS</span></div><p>“You get a strike, I do a little dance.<br>You miss? That's between you<br>and the captcha department.”</p><div class="cat-signature">Mucho love. Cero mercy.</div></section>
+          <button id="how-to" class="text-button">ⓘ The very simple rules <span>↗</span></button>
+        </aside>
+      </div>
+      <footer><span>A SMALL GAME. A DISPROPORTIONATE AMOUNT OF EMOTION.</span><button id="reset" class="text-button">↺ Start over</button><span>MADE WITH LOVE & A LITTLE SPITE.</span></footer>
+    </main>
+  </div>
+  <dialog id="captcha" class="modal" aria-labelledby="captcha-title">
+    <div class="modal-topline">DEPARTMENT OF HUMAN INCONVENIENCE <span>®</span></div>
+    <div class="modal-body"><span class="eyebrow">NICE MISS. JUST ONE QUICK THING.</span><h2 id="captcha-title">Prove you're… something.</h2><p id="captcha-prompt"></p><div id="captcha-stage" class="captcha-stage"></div><div id="captcha-feedback" class="captcha-feedback" aria-live="polite">There are no wrong answers. Except yours, probably.</div><button id="verify" class="bowl-button">VERIFY MY EXISTENCE <span>→</span></button><button id="abandon" class="text-button">Abandon run & reclaim my dignity (resets your strikes)</button><small class="captcha-disclaimer">A fictional captcha. No data collected. Logic sold separately.</small></div>
+  </dialog>
+  <dialog id="win" class="modal win-modal" aria-labelledby="win-title"><div class="modal-body"><span class="eyebrow">AGAINST ALL REASONABLE EXPECTATIONS</span><img src="cat.svg" alt="Señor Whiskers celebrates your victory"><h2 id="win-title">Three strikes.<br>One absolute legend.</h2><p>You did it. The cat is proud. The captcha department is devastated.</p><button id="play-again" class="bowl-button">TEMPT FATE AGAIN <span>↗</span></button></div></dialog>
+  <dialog id="rules" class="modal" aria-labelledby="rules-title"><div class="modal-body"><span class="eyebrow">A PERFECTLY REASONABLE ARRANGEMENT</span><h2 id="rules-title">Bowl. Dance. Suffer.</h2><ol><li>Use the slider or tap the lane to aim. Check the <strong>lane oil</strong> first: each arrow is roughly 10% of hook, so aim the other way to compensate.</li><li>Click <strong>Let it roll</strong> or press <strong>Space</strong> to charge. Your aim wobbles while you charge. Release in the green zone when the dotted line is where you want it.</li><li>Every strike in a row makes the green zone smaller, the meter faster, and the wobble worse. Occasionally something unexplained nudges the ball.</li><li>All 10 pins earns a strike and a mariachi cat celebration.</li><li>Anything less summons a deeply unhelpful captcha. Get through it and your strikes are safe. Abandon it and you start over. Its format changes. Its logic does not exist. Solve it properly, or just keep verifying until it gets bored and lets you through.</li><li>Get <strong>3 strikes</strong> to win entirely fictional glory.</li></ol><button id="close-rules" class="bowl-button">I ACCEPT THIS TERRIBLE DEAL <span>→</span></button></div></dialog>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
